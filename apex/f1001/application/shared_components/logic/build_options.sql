@@ -16,6 +16,12 @@ wwv_flow_api.create_build_option(
 ,p_build_option_name=>'Commented Out'
 ,p_build_option_status=>'EXCLUDE'
 );
+wwv_flow_api.create_build_option(
+ p_id=>wwv_flow_api.id(8873332992465154)
+,p_build_option_name=>'Feature: 1_02'
+,p_build_option_status=>'EXCLUDE'
+,p_default_on_export=>'EXCLUDE'
+);
 wwv_flow_api.component_end;
 end;
 /
