@@ -121,4 +121,8 @@ prompt --install
 @@application/pages/page_10016.sql
 @@application/pages/page_10020.sql
 @@application/pages/page_10021.sql
+@@application/deployment/definition.sql
+@@application/deployment/install/upgrade_test.sql
+@@application/deployment/checks.sql
+@@application/deployment/buildoptions.sql
 @@application/end_environment.sql
