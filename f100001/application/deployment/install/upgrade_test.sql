@@ -17,7 +17,7 @@ wwv_flow_imp_shared.create_install_script(
 ,p_name=>'test'
 ,p_sequence=>10
 ,p_script_type=>'UPGRADE'
-,p_script_clob=>'create table TETTTT (id number);'
+,p_script_clob=>'create table TETTTT (id varchar2(200));'
 );
 wwv_flow_imp.component_end;
 end;
