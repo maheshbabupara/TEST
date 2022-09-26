@@ -1,7 +1,1 @@
---nEW lINES ADDED
---Line2
---testtt
---TESTT
--- TEST3
---TEST5
--- New line added today
+create table saaaaa (id number);
