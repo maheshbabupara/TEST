@@ -18,3 +18,4 @@ begin
 	apex_application_install.set_schema( l_parsing_schema );
 	apex_application_install.set_application_alias( 'F' || apex_application_install.get_application_id );
 end;
+/
