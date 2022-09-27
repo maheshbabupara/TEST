@@ -123,6 +123,7 @@ prompt --install
 @@application/pages/page_10021.sql
 @@application/deployment/definition.sql
 @@application/deployment/install/upgrade_release_data_sql.sql
+@@application/deployment/install/upgrade_enable_automations.sql
 @@application/deployment/checks.sql
 @@application/deployment/buildoptions.sql
 @@application/end_environment.sql
