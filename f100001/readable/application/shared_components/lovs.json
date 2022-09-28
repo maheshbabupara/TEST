@@ -1,0 +1,104 @@
+[
+  {
+    "id":"12305416538453511"
+   ,"Identification":{
+      "Name":"TIMEFRAME (4 WEEKS)"
+    }
+   ,"Source":{
+      "Location":"Local Database"
+     ,"Type":"SQL Query"
+     ,"SQL Query":"select disp,\n       val as seconds\n  from table( apex_util.get_timeframe_lov_data )\n order by insert_order"
+    }
+   ,"Column Mapping":{
+      "Return":"SECONDS"
+     ,"Display":"DISP"
+     ,"Default Sort":"Use Order By from Query"
+    }
+  }
+ ,{
+    "id":"12351779774453627"
+   ,"Identification":{
+      "Name":"VIEW_AS_REPORT_CHART"
+    }
+   ,"Source":{
+      "Location":"Static Values"
+    }
+   ,"Entries":[
+      {
+        "id":"12352078734453627"
+       ,"Entry":{
+          "Sequence":1
+         ,"Display":"Add Report Page"
+         ,"Return":"REPORT"
+        }
+       ,"Globalization":{
+          "Template":"\u003Cspan class=\"fa fa-table\" aria-hidden=\"true\"\u003E\u003C\/span\u003E\u003Cspan class=\"u-VisuallyHidden\"\u003E#DISPLAY_VALUE#\u003C\/span\u003E"
+        }
+      }
+     ,{
+        "id":"12352456579453628"
+       ,"Entry":{
+          "Sequence":2
+         ,"Display":"Add Chart Page"
+         ,"Return":"CHART"
+        }
+       ,"Globalization":{
+          "Template":"\u003Cspan class=\"fa fa-pie-chart\" aria-hidden=\"true\"\u003E\u003C\/span\u003E\u003Cspan class=\"u-VisuallyHidden\"\u003E#DISPLAY_VALUE#\u003C\/span\u003E"
+        }
+      }
+    ]
+  }
+ ,{
+    "id":"15475259456512818"
+   ,"Identification":{
+      "Name":"TASKS LOV"
+    }
+   ,"Source":{
+      "Location":"Local Database"
+     ,"Type":"SQL Query"
+     ,"SQL Query":"select name d,\n       code r\nfrom   tasks_lov;"
+    }
+   ,"Column Mapping":{
+      "Return":"R"
+     ,"Display":"D"
+     ,"Default Sort":"D"
+     ,"Sort Direction":"Ascending (Nulls Last)"
+    }
+  }
+ ,{
+    "id":"21161681780031122"
+   ,"Identification":{
+      "Name":"EMP.ENAME"
+    }
+   ,"Source":{
+      "Location":"Local Database"
+     ,"Type":"Table \/ View"
+     ,"Table Owner":"Parsing Schema"
+     ,"Table Name":"EMP"
+    }
+   ,"Column Mapping":{
+      "Return":"EMPNO"
+     ,"Display":"ENAME"
+     ,"Default Sort":"ENAME"
+     ,"Sort Direction":"Ascending (Nulls Last)"
+    }
+  }
+ ,{
+    "id":"21163573973031126"
+   ,"Identification":{
+      "Name":"DEPT.DNAME"
+    }
+   ,"Source":{
+      "Location":"Local Database"
+     ,"Type":"Table \/ View"
+     ,"Table Owner":"Parsing Schema"
+     ,"Table Name":"DEPT"
+    }
+   ,"Column Mapping":{
+      "Return":"DEPTNO"
+     ,"Display":"DNAME"
+     ,"Default Sort":"DNAME"
+     ,"Sort Direction":"Ascending (Nulls Last)"
+    }
+  }
+]

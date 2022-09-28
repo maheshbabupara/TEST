@@ -1,0 +1,18 @@
+[
+  {
+    "id":"12083649265452763"
+   ,"Identification":{
+      "Name":"Oracle APEX Accounts"
+    }
+   ,"Settings":{
+      "Type":"No Authentication"
+     ,"Username":"nobody"
+    }
+   ,"Login Processing":{
+      "Switch in Session":false
+    }
+   ,"Real Application Security":{
+      "RAS Mode":"Disabled"
+    }
+  }
+]

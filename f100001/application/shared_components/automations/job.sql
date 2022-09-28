@@ -17,7 +17,7 @@ wwv_flow_imp_shared.create_automation(
 ,p_static_id=>'job'
 ,p_trigger_type=>'POLLING'
 ,p_polling_interval=>'FREQ=MINUTELY;INTERVAL=1'
-,p_polling_status=>'DISABLED'
+,p_polling_status=>'ACTIVE'
 ,p_result_type=>'ALWAYS'
 ,p_use_local_sync_table=>false
 ,p_include_rowid_column=>false

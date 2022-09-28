@@ -1,0 +1,1391 @@
+{
+  "id":"3"
+ ,"Identification":{
+    "Name":"My ToDo"
+   ,"Alias":"MY-TODO"
+   ,"Title":"My ToDo"
+  }
+ ,"Appearance":{
+    "User Interface":"Desktop (12278966386452918)"
+   ,"Page Mode":"Modal Dialog"
+   ,"Dialog Template":"Drawer (12084736033452772)"
+   ,"Template Options":[
+      "#DEFAULT#"
+     ,"t-DeferredRendering"
+     ,"js-dialog-class-t-Drawer--pullOutEnd"
+     ,"js-dialog-class-t-Drawer--xl"
+    ]
+  }
+ ,"Dialog":{
+    "Chained":true
+  }
+ ,"Navigation Menu":{
+    "Override User Interface Level":false
+  }
+ ,"Navigation":{
+    "Cursor Focus":"Do not focus cursor"
+   ,"Warn on Unsaved Changes":true
+  }
+ ,"JavaScript":{
+    "Function and Global Variable Declaration":"let id = 0;\nfunction init(el, options) {\n    const board = new boardClass(el, options);\n    board.sort({\n        group: \u0027shared\u0027,\n        animation: 100,\n        sort: true,\n        onAdd: function (evt) {\n            onAddScript(evt);\n            id = 1;\n        },\n        onEnd: async function (evt) {\n            onEndScript(evt);\n            if(id==0) return\n            id = 0;\n            checkUncheck(evt.item.querySelector(\u0027.a-CardView-icon\u0027));\n        },\n    });\n\n    async function onAddScript(evt) {\n        await board.executeScript(\n            \u0060update my_todo set status = \u0027${board.options.status}\u0027 where id = ${evt.item.dataset.id};\u0060\n        );\n        board.setSeq();\n        if (!board.getSeqDiff()) return;\n        board.getSeqDiff().forEach(i =\u003E {\n            board.executeScript(\n                \u0060update my_todo set seq = \u0027${i.seq}\u0027 where id = ${i.id};\u0060\n            );\n        });\n\n    }\n    async function onEndScript(evt) {\n        board.setSeq();\n        if (!board.getSeqDiff()) return;\n        board.getSeqDiff().forEach(i =\u003E {\n            board.executeScript(\n                \u0060update my_todo set seq = \u0027${i.seq}\u0027 where id = ${i.id};\u0060\n            );\n        });\n    }\n    board.triggeringElement.querySelectorAll(\u0027ul li .click-check\u0027).forEach(i =\u003E {\n        i.addEventListener(\u0027click\u0027, onClickScript);\n    });\n    board.triggeringElement.querySelectorAll(\u0027ul li .click-uncheck\u0027).forEach(i =\u003E {\n        i.addEventListener(\u0027click\u0027, onClickScript);\n    });\n    async function onClickScript(evt) {\n        let tEl = evt.target;\n        checkUncheck(tEl);\n        let item = tEl.closest(\"li\");\n        if (!tEl.closest(\u0027#TODO\u0027))\n            document.querySelector(\u0027#TODO ul\u0027).appendChild(item);\n        else document.querySelector(\u0027#COMPLETED ul\u0027).appendChild(item);\n        await board.executeScript(\n            \u0060update my_todo set status = case when status is not null then null else \u0027COMPLETED\u0027 end where id = ${item.dataset.id};\u0060\n        );\n        board.setSeqEl(\u0027TODO\u0027);\n        board.setSeqEl(\u0027COMPLETED\u0027);\n        board.getSeqEl(\u0027TODO\u0027).forEach(i =\u003E {\n            board.executeScript(\n                \u0060update my_todo set seq = \u0027${i.seq}\u0027 where id = ${i.id};\u0060\n            );\n        });\n        board.getSeqEl(\u0027COMPLETED\u0027).forEach(i =\u003E {\n            board.executeScript(\n                \u0060update my_todo set seq = \u0027${i.seq}\u0027 where id = ${i.id};\u0060\n            );\n        });\n    }\n\n    function checkUncheck(tEl) {\n        if (tEl.classList.contains(\"fa-square-o\")) {\n            tEl.classList.remove(\"fa-square-o\");\n            tEl.classList.add(\"fa-check-square\");\n            tEl.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").classList.add(\"strike\");\n            tEl.closest(\".a-CardView-header\").querySelector(\".a-CardView-subTitle\").classList.add(\"strike\");\n        } else {\n            tEl.classList.remove(\"fa-check-square\");\n            tEl.classList.add(\"fa-square-o\");\n            tEl.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").classList.remove(\"strike\");\n            tEl.closest(\".a-CardView-header\").querySelector(\".a-CardView-subTitle\").classList.remove(\"strike\");\n        }\n    }\n}"
+  }
+ ,"CSS":{
+    "Inline":".completed * {\n    color: green;\n    text-decoration: line-through;\n}\n.task-card {\n    display: flex;\n}\n\n\/* .u-colors .a-CardView-items\u003E:nth-child(45n+1) .u-color, .u-colors\u003E:nth-child(45n+1) .u-color {\n    --u-color: none;\n    --u-color-contrast: none;\n} *\/\n.a-CardView-icon.u-color {\n    background-color: unset;\n    color: unset;\n}\n\n.click-check {\n    cursor: pointer;\n    z-index: 100;\n}\n\n.click-check:hover,.click-uncheck:hover {\n    color: darkgrey;\n}\n\n.click-uncheck {\n    cursor: pointer;\n    z-index: 100;\n}\n\n.strike {\n    text-decoration: line-through;\n}\n\n.a-GV-noDataMsg {\n    display: none !important;\n}\n\n.a-CardView-badgeValue {\n    display: none;\n}\n\n.a-CardView-badge {\n    background-color: unset;\n}\n\n.click-del {\n    \/* color: red; *\/\n    font-size: 20px !important;\n    cursor: pointer;\n    z-index: 100;\n}\n.click-del:hover {\n    color: darkgray;\n}"
+  }
+ ,"Security":{
+    "Authentication":"Page Requires Authentication"
+   ,"Deep Linking":"Application Default"
+   ,"Page Access Protection":"Arguments Must Have Checksum"
+   ,"Form Auto Complete":"Off"
+   ,"Browser Cache":"Application Default"
+  }
+ ,"Session Management":{
+    "Rejoin Sessions":"Application Default"
+  }
+ ,"Advanced":{
+    "Enable duplicate page submissions":"Yes - Enable page to be re-posted"
+   ,"Reload on Submit":"Only for Success"
+  }
+ ,"Server Cache":{
+    "Caching":"Disabled"
+  }
+ ,"Regions":[
+    {
+      "id":"8086493251458940"
+     ,"Identification":{
+        "Title":"Add My Todo"
+       ,"Type":"Static Content"
+      }
+     ,"Layout":{
+        "Sequence":10
+       ,"Parent Region":"No Parent"
+       ,"Position":"REGION_POSITION_03"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+      }
+     ,"Appearance":{
+        "Template":"Inline Dialog (12176629630452837)"
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"js-dialog-autoheight"
+         ,"js-dialog-size600x400"
+        ]
+       ,"Render Components":"Above Content"
+      }
+     ,"Advanced":{
+        "Region Display Selector":true
+       ,"Exclude Title from Translation":false
+      }
+     ,"Server Cache":{
+        "Caching":"Disabled"
+      }
+     ,"Customization":{
+        "Customizable":"Not Customizable By End Users"
+      }
+     ,"Attributes":{
+        "Settings":{
+          "Output As":"HTML"
+         ,"Expand Shortcuts":false
+        }
+      }
+    }
+   ,{
+      "id":"12663826978040405"
+     ,"Identification":{
+        "Title":"My Todo"
+       ,"Type":"Cards"
+      }
+     ,"Source":{
+        "Location":"Local Database"
+       ,"Type":"SQL Query"
+       ,"SQL Query":"select ID,\n       ITEM_ID,\n       (select name from tasks_lov b where code=a.NAME) NAME,\n       STATUS,\n       DESCRIPTION,\n       CASE WHEN STATUS IS NULL THEN \u0027fa-square-o click-check\u0027 \n            ELSE \u0027fa-check-square click-uncheck\u0027 END ICON,\n       \u0027Remove\u0027 NONE\n  from MY_TODO a\n where ITEM_ID = :P3_ITEM_ID\n   and STATUS IS NULL\n order by seq"
+      }
+     ,"Layout":{
+        "Sequence":10
+       ,"Parent Region":"Todo (12666701324040434)"
+       ,"Position":"SUB_REGIONS"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+      }
+     ,"Appearance":{
+        "Template":"Cards Container (12127792649452811)"
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"margin-top-sm"
+        ]
+       ,"Render Components":"Above Content"
+      }
+     ,"Advanced":{
+        "Static ID":"TODO"
+       ,"Region Display Selector":false
+       ,"Exclude Title from Translation":false
+      }
+     ,"Server-side Condition":{
+        "Type":"Item is NULL"
+       ,"Item":"P3_ACTION"
+      }
+     ,"Server Cache":{
+        "Caching":"Disabled"
+      }
+     ,"Customization":{
+        "Customizable":"Not Customizable By End Users"
+      }
+     ,"Attributes":{
+        "id":"12663962307040406"
+       ,"Appearance":{
+          "Layout":"Horizontal (Row)"
+        }
+       ,"Card":{
+          "Primary Key Column 1":"ID"
+        }
+       ,"Title":{
+          "Advanced Formatting":true
+         ,"HTML Expression":"\u003Ch3 class=\"a-CardView-title \" data-id=\u0026ID.\u003E\u0026NAME.\u003C\/h3\u003E"
+        }
+       ,"Subtitle":{
+          "Advanced Formatting":false
+         ,"Column":"DESCRIPTION"
+        }
+       ,"Body":{
+          "Advanced Formatting":false
+        }
+       ,"Secondary Body":{
+          "Advanced Formatting":false
+        }
+       ,"Icon and Badge":{
+          "Icon Source":"Icon Class Column"
+         ,"Icon Column":"ICON"
+         ,"Icon CSS Classes":"fa"
+         ,"Icon Position":"Start"
+         ,"Badge Column":"NONE"
+         ,"Badge CSS Classes":[
+            "fa"
+           ,"fa-times-circle"
+           ,"click-del"
+          ]
+        }
+       ,"Media":{
+          "Advanced Formatting":false
+         ,"Source":"No Media"
+        }
+       ,"Performance":{
+          "Lazy Loading":false
+        }
+       ,"Pagination":{
+          "Type":"Scroll"
+         ,"Show Total Row Count":false
+        }
+       ,"Actions":[
+          {
+            "id":"12668266798040449"
+           ,"Identification":{
+              "Type":"Full Card"
+            }
+           ,"Layout":{
+              "Sequence":10
+            }
+           ,"Link":{
+              "Type":"Redirect to URL"
+             ,"Target":"javascript:apex.event.trigger(document,\"DAEDIT\",{id:\u0026ID.});void(0);"
+            }
+          }
+        ]
+      }
+    }
+   ,{
+      "id":"12664892766040415"
+     ,"Identification":{
+        "Title":"My Todo Completed"
+       ,"Type":"Cards"
+      }
+     ,"Source":{
+        "Location":"Local Database"
+       ,"Type":"SQL Query"
+       ,"SQL Query":"select ID,\n       ITEM_ID,\n       (select name from tasks_lov b where code=a.NAME) NAME,\n       STATUS,\n       DESCRIPTION,\n       CASE WHEN STATUS IS NULL THEN \u0027fa-square-o click-check\u0027 \n            ELSE \u0027fa-check-square click-uncheck\u0027 END ICON,\n       \u0027Remove\u0027 NONE\n  from MY_TODO a\n where ITEM_ID = :P3_ITEM_ID\n   and STATUS IS NOT NULL\n  order by seq"
+      }
+     ,"Layout":{
+        "Sequence":10
+       ,"Parent Region":"Completed (12665122983040418)"
+       ,"Position":"SUB_REGIONS"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+      }
+     ,"Appearance":{
+        "Template":"Cards Container (12127792649452811)"
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"margin-top-sm"
+        ]
+       ,"Render Components":"Above Content"
+      }
+     ,"Advanced":{
+        "Static ID":"COMPLETED"
+       ,"Region Display Selector":false
+       ,"Exclude Title from Translation":false
+      }
+     ,"Server-side Condition":{
+        "Type":"Item is NULL"
+       ,"Item":"P3_ACTION"
+      }
+     ,"Server Cache":{
+        "Caching":"Disabled"
+      }
+     ,"Customization":{
+        "Customizable":"Not Customizable By End Users"
+      }
+     ,"Attributes":{
+        "id":"12664942381040416"
+       ,"Appearance":{
+          "Layout":"Horizontal (Row)"
+        }
+       ,"Card":{
+          "Primary Key Column 1":"ID"
+        }
+       ,"Title":{
+          "Advanced Formatting":true
+         ,"HTML Expression":"\u003Ch3 class=\"a-CardView-title strike\" data-id=\u0026ID.\u003E\u0026NAME.\u003C\/h3\u003E"
+        }
+       ,"Subtitle":{
+          "Advanced Formatting":true
+         ,"HTML Expression":"\u003Ch4 class=\"a-CardView-subTitle strike\"\u003E\u0026DESCRIPTION.\u003C\/h4\u003E"
+        }
+       ,"Body":{
+          "Advanced Formatting":false
+        }
+       ,"Secondary Body":{
+          "Advanced Formatting":false
+        }
+       ,"Icon and Badge":{
+          "Icon Source":"Icon Class Column"
+         ,"Icon Column":"ICON"
+         ,"Icon CSS Classes":"fa"
+         ,"Icon Position":"Start"
+         ,"Badge Column":"NONE"
+         ,"Badge CSS Classes":[
+            "fa"
+           ,"fa-times-circle"
+           ,"click-del"
+          ]
+        }
+       ,"Media":{
+          "Advanced Formatting":false
+         ,"Source":"No Media"
+        }
+       ,"Performance":{
+          "Lazy Loading":false
+        }
+       ,"Pagination":{
+          "Type":"Scroll"
+         ,"Show Total Row Count":false
+        }
+      }
+    }
+   ,{
+      "id":"12665122983040418"
+     ,"Identification":{
+        "Title":"Completed"
+       ,"Type":"Static Content"
+      }
+     ,"Layout":{
+        "Sequence":90
+       ,"Parent Region":"No Parent"
+       ,"Position":"BODY"
+       ,"Start New Layout":false
+       ,"Start New Row":false
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+      }
+     ,"Appearance":{
+        "Template":"Collapsible (12129616560452812)"
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"t-Region--noPadding"
+         ,"is-expanded"
+         ,"t-Region--noUI"
+         ,"t-Region--scrollBody"
+        ]
+       ,"Render Components":"Above Content"
+      }
+     ,"Advanced":{
+        "Region Display Selector":true
+       ,"Exclude Title from Translation":false
+      }
+     ,"Server-side Condition":{
+        "Type":"Item is NULL"
+       ,"Item":"P3_ACTION"
+      }
+     ,"Server Cache":{
+        "Caching":"Disabled"
+      }
+     ,"Customization":{
+        "Customizable":"Not Customizable By End Users"
+      }
+     ,"Attributes":{
+        "Settings":{
+          "Output As":"HTML"
+         ,"Expand Shortcuts":false
+        }
+      }
+    }
+   ,{
+      "id":"12666701324040434"
+     ,"Identification":{
+        "Title":"Todo"
+       ,"Type":"Static Content"
+      }
+     ,"Layout":{
+        "Sequence":80
+       ,"Parent Region":"No Parent"
+       ,"Position":"BODY"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+      }
+     ,"Appearance":{
+        "Template":"Collapsible (12129616560452812)"
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"t-Region--noPadding"
+         ,"is-expanded"
+         ,"t-Region--noUI"
+         ,"t-Region--scrollBody"
+        ]
+       ,"Render Components":"Above Content"
+      }
+     ,"Advanced":{
+        "Region Display Selector":true
+       ,"Exclude Title from Translation":false
+      }
+     ,"Server-side Condition":{
+        "Type":"Item is NULL"
+       ,"Item":"P3_ACTION"
+      }
+     ,"Server Cache":{
+        "Caching":"Disabled"
+      }
+     ,"Customization":{
+        "Customizable":"Not Customizable By End Users"
+      }
+     ,"Attributes":{
+        "Settings":{
+          "Output As":"HTML"
+         ,"Expand Shortcuts":false
+        }
+      }
+    }
+  ]
+ ,"Page Items":[
+    {
+      "id":"8086569362458941"
+     ,"Identification":{
+        "Name":"P3_TASK"
+       ,"Type":"Select List"
+      }
+     ,"Label":{
+        "Label":"Task"
+       ,"Alignment":"Left"
+      }
+     ,"Settings":{
+        "Page Action on Selection":"None"
+       ,"Allow Multi Selection":false
+      }
+     ,"Layout":{
+        "Sequence":20
+       ,"Region":"Add My Todo (8086493251458940)"
+       ,"Position":"BODY"
+       ,"Alignment":"Left"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+       ,"Label Column Span":"Page Template Default"
+      }
+     ,"Appearance":{
+        "Template":"Optional - Floating (12251584487452883)"
+       ,"Template Options":[
+          "#DEFAULT#"
+        ]
+       ,"Height":1
+      }
+     ,"Validation":{
+        "Value Required":false
+      }
+     ,"List of Values":{
+        "Type":"Shared Component"
+       ,"List of Values":"TASKS LOV (15475259456512818)"
+       ,"Display Extra Values":false
+       ,"Display Null Value":true
+       ,"Null Display Value":"--Select--"
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Quick Picks":{
+        "Show Quick Picks":false
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+   ,{
+      "id":"8086784828458943"
+     ,"Identification":{
+        "Name":"P3_ACTION"
+       ,"Type":"Hidden"
+      }
+     ,"Settings":{
+        "Value Protected":true
+      }
+     ,"Layout":{
+        "Sequence":20
+       ,"Region":"No Parent"
+       ,"Position":"BODY"
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+   ,{
+      "id":"8087098213458946"
+     ,"Identification":{
+        "Name":"P3_ITEM_ID"
+       ,"Type":"Hidden"
+      }
+     ,"Settings":{
+        "Value Protected":true
+      }
+     ,"Layout":{
+        "Sequence":30
+       ,"Region":"No Parent"
+       ,"Position":"BODY"
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+   ,{
+      "id":"8087126965458947"
+     ,"Identification":{
+        "Name":"P3_ID"
+       ,"Type":"Hidden"
+      }
+     ,"Settings":{
+        "Value Protected":false
+      }
+     ,"Layout":{
+        "Sequence":10
+       ,"Region":"Add My Todo (8086493251458940)"
+       ,"Position":"BODY"
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+   ,{
+      "id":"12664569625040412"
+     ,"Identification":{
+        "Name":"P3_CHECK_ID"
+       ,"Type":"Hidden"
+      }
+     ,"Settings":{
+        "Value Protected":false
+      }
+     ,"Layout":{
+        "Sequence":40
+       ,"Region":"No Parent"
+       ,"Position":"BODY"
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+   ,{
+      "id":"12666684521040433"
+     ,"Identification":{
+        "Name":"P3_REGION_ACTION"
+       ,"Type":"Hidden"
+      }
+     ,"Settings":{
+        "Value Protected":false
+      }
+     ,"Layout":{
+        "Sequence":50
+       ,"Region":"No Parent"
+       ,"Position":"BODY"
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+   ,{
+      "id":"12666874153040435"
+     ,"Identification":{
+        "Name":"P3_DESCRIPTION"
+       ,"Type":"Textarea"
+      }
+     ,"Label":{
+        "Label":"Description"
+       ,"Alignment":"Left"
+      }
+     ,"Settings":{
+        "Resizable":true
+       ,"Auto-Height":false
+       ,"Character Counter":false
+       ,"Trim Spaces":"Leading and Trailing"
+      }
+     ,"Layout":{
+        "Sequence":30
+       ,"Region":"Add My Todo (8086493251458940)"
+       ,"Position":"BODY"
+       ,"Alignment":"Left"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+       ,"Label Column Span":"Page Template Default"
+      }
+     ,"Appearance":{
+        "Template":"Optional - Floating (12251584487452883)"
+       ,"Template Options":[
+          "#DEFAULT#"
+        ]
+       ,"Width":30
+       ,"Height":5
+      }
+     ,"Validation":{
+        "Value Required":false
+      }
+     ,"Advanced":{
+        "Warn on Unsaved Changes":"Page Default"
+      }
+     ,"Source":{
+        "Type":"Null"
+       ,"Used":"Only when current value in session state is null"
+       ,"Maintain Session State":"Per Session (Disk)"
+      }
+     ,"Quick Picks":{
+        "Show Quick Picks":false
+      }
+     ,"Security":{
+        "Session State Protection":"Unrestricted"
+       ,"Store value encrypted in session state":true
+       ,"Restricted Characters":"All characters can be saved."
+      }
+    }
+  ]
+ ,"Buttons":[
+    {
+      "id":"8086318265458939"
+     ,"Identification":{
+        "Button Name":"Add"
+       ,"Label":"Add My Todo"
+      }
+     ,"Layout":{
+        "Sequence":10
+       ,"Region":"Todo (12666701324040434)"
+       ,"Position":"EDIT"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+      }
+     ,"Appearance":{
+        "Button Template":"Icon (12253324284452885)"
+       ,"Hot":true
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"t-Button--hoverIconPush"
+        ]
+       ,"CSS Classes":[
+          "u-pullRight"
+        ]
+       ,"Icon":"fa-plus-circle"
+      }
+     ,"Behavior":{
+        "Action":"Defined by Dynamic Action"
+       ,"Execute Validations":true
+      }
+     ,"Server-side Condition":{
+        "Type":"Item is NULL"
+       ,"Item":"P3_ACTION"
+      }
+    }
+   ,{
+      "id":"8086661788458942"
+     ,"Identification":{
+        "Button Name":"Save"
+       ,"Label":"Add"
+      }
+     ,"Layout":{
+        "Sequence":50
+       ,"Region":"Add My Todo (8086493251458940)"
+       ,"Position":"BODY"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+       ,"Alignment":"Right"
+      }
+     ,"Appearance":{
+        "Button Template":"Text (12254022192452886)"
+       ,"Hot":true
+       ,"Template Options":[
+          "#DEFAULT#"
+        ]
+       ,"CSS Classes":[
+          "u-pullRight"
+        ]
+      }
+     ,"Behavior":{
+        "Action":"Submit Page"
+       ,"Execute Validations":true
+       ,"Warn on Unsaved Changes":"Do Not Check"
+      }
+    }
+   ,{
+      "id":"12667532509040442"
+     ,"Identification":{
+        "Button Name":"Cancel"
+       ,"Label":"Cancel"
+      }
+     ,"Layout":{
+        "Sequence":40
+       ,"Region":"Add My Todo (8086493251458940)"
+       ,"Position":"BODY"
+       ,"Start New Layout":false
+       ,"Start New Row":true
+       ,"Column":"Automatic"
+       ,"New Column":true
+       ,"Column Span":"Automatic"
+       ,"Alignment":"Right"
+      }
+     ,"Appearance":{
+        "Button Template":"Text (12254022192452886)"
+       ,"Hot":false
+       ,"Template Options":[
+          "#DEFAULT#"
+        ]
+      }
+     ,"Behavior":{
+        "Action":"Defined by Dynamic Action"
+       ,"Execute Validations":true
+      }
+    }
+  ]
+ ,"Dynamic Actions":[
+    {
+      "id":"8871444435460837"
+     ,"Identification":{
+        "Name":"Drag N Drop Todo"
+      }
+     ,"Execution Options":{
+        "Sequence":70
+      }
+     ,"When":{
+        "Event":"NATIVE_CARDS|REGION TYPE|tablemodelviewpagechange"
+       ,"Selection Type":"Region"
+       ,"Region":"My Todo (12663826978040405)"
+      }
+     ,"Advanced":{
+        "Event Scope":"Static"
+      }
+     ,"Actions":[
+        {
+          "id":"8871530129460838"
+         ,"Identification":{
+            "Action":"Board"
+          }
+         ,"Settings":{
+            "JavaScript On Initialization":"init(this,{ status: \u0027\u0027 });"
+          }
+         ,"Execution Options":{
+            "Sequence":10
+           ,"Event":"Drag N Drop Todo (8871444435460837)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":true
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"8871672423460839"
+     ,"Identification":{
+        "Name":"Drag N Drop Completed"
+      }
+     ,"Execution Options":{
+        "Sequence":80
+      }
+     ,"When":{
+        "Event":"NATIVE_CARDS|REGION TYPE|tablemodelviewpagechange"
+       ,"Selection Type":"Region"
+       ,"Region":"My Todo Completed (12664892766040415)"
+      }
+     ,"Advanced":{
+        "Event Scope":"Static"
+      }
+     ,"Actions":[
+        {
+          "id":"8871792076460840"
+         ,"Identification":{
+            "Action":"Board"
+          }
+         ,"Settings":{
+            "JavaScript On Initialization":"init(this,{ status: \u0027COMPLETED\u0027 });"
+          }
+         ,"Execution Options":{
+            "Sequence":10
+           ,"Event":"Drag N Drop Completed (8871672423460839)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":true
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"12664399605040410"
+     ,"Identification":{
+        "Name":"On click-check"
+      }
+     ,"Execution Options":{
+        "Sequence":10
+      }
+     ,"When":{
+        "Event":"EVENT.EVENT.BROWSER.CLICK"
+       ,"Selection Type":"jQuery Selector"
+       ,"jQuery Selector":".a-CardView-header .click-check"
+      }
+     ,"Advanced":{
+        "Event Scope":"Dynamic"
+      }
+     ,"Server-side Condition":{
+        "Type":"Never"
+      }
+     ,"Actions":[
+        {
+          "id":"12664488876040411"
+         ,"Identification":{
+            "Action":"Execute JavaScript Code"
+          }
+         ,"Settings":{
+            "Code":"let el = this.triggeringElement;\nif (el.classList.contains(\"fa-square-o\")) {\n    el.classList.remove(\"fa-square-o\");\n    el.classList.add(\"fa-check-square\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").classList.add(\"strike\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-subTitle\").classList.add(\"strike\");\n} else {\n    el.classList.remove(\"fa-check-square\");\n    el.classList.add(\"fa-square-o\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").classList.remove(\"strike\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-subTitle\").classList.remove(\"strike\");\n}\n$s(\"P3_CHECK_ID\",el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").dataset.id);\n"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_CHECK_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":20
+           ,"Event":"On click-check (12664399605040410)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12664606731040413"
+         ,"Identification":{
+            "Action":"Execute Server-side Code"
+          }
+         ,"Settings":{
+            "Language":"PE.PROPERTY.SOURCE_SNIPPET_LANG.LOV.PLSQL.D"
+           ,"PL\/SQL Code":"DECLARE\n    l_found NUMBER;\nBEGIN\n    select count(*) into l_found from my_todo where id=:P3_CHECK_ID and status is null;\n    if l_found \u003E 0 then\n        update my_todo\n           set status = \u0027DONE\u0027\n         where ID = :P3_CHECK_ID;\n    else\n        update my_todo\n           set status = null\n         where ID = :P3_CHECK_ID;\n    end if;\nEND;"
+           ,"Items to Submit":[
+              "P3_CHECK_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":30
+           ,"Event":"On click-check (12664399605040410)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+           ,"Stop Execution On Error":true
+           ,"Wait For Result":true
+          }
+        }
+       ,{
+          "id":"12664709819040414"
+         ,"Identification":{
+            "Action":"Refresh"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"My Todo (12663826978040405)"
+          }
+         ,"Execution Options":{
+            "Sequence":40
+           ,"Event":"On click-check (12664399605040410)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12665079738040417"
+         ,"Identification":{
+            "Action":"Refresh"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"My Todo Completed (12664892766040415)"
+          }
+         ,"Execution Options":{
+            "Sequence":50
+           ,"Event":"On click-check (12664399605040410)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"12665669753040423"
+     ,"Identification":{
+        "Name":"On click-uncheck"
+      }
+     ,"Execution Options":{
+        "Sequence":20
+      }
+     ,"When":{
+        "Event":"EVENT.EVENT.BROWSER.CLICK"
+       ,"Selection Type":"jQuery Selector"
+       ,"jQuery Selector":".click-uncheck"
+      }
+     ,"Advanced":{
+        "Event Scope":"Dynamic"
+      }
+     ,"Server-side Condition":{
+        "Type":"Never"
+      }
+     ,"Actions":[
+        {
+          "id":"12665879905040425"
+         ,"Identification":{
+            "Action":"Execute JavaScript Code"
+          }
+         ,"Settings":{
+            "Code":"let el = this.triggeringElement;\nif (el.classList.contains(\"fa-square-o\")) {\n    el.classList.remove(\"fa-square-o\");\n    el.classList.add(\"fa-check-square\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").classList.add(\"strike\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-subTitle\").classList.add(\"strike\");\n} else {\n    el.classList.remove(\"fa-check-square\");\n    el.classList.add(\"fa-square-o\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").classList.remove(\"strike\");\n    el.closest(\".a-CardView-header\").querySelector(\".a-CardView-subTitle\").classList.remove(\"strike\");\n}\n$s(\"P3_CHECK_ID\",el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").dataset.id);\n"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_CHECK_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":20
+           ,"Event":"On click-uncheck (12665669753040423)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12666036331040427"
+         ,"Identification":{
+            "Action":"Execute Server-side Code"
+          }
+         ,"Settings":{
+            "Language":"PE.PROPERTY.SOURCE_SNIPPET_LANG.LOV.PLSQL.D"
+           ,"PL\/SQL Code":"DECLARE\n    l_found NUMBER;\nBEGIN\n    select count(*) into l_found from my_todo where id=:P3_CHECK_ID and status is null;\n    if l_found \u003E 0 then\n        update my_todo\n           set status = \u0027DONE\u0027\n         where ID = :P3_CHECK_ID;\n    else\n        update my_todo\n           set status = null\n         where ID = :P3_CHECK_ID;\n    end if;\nEND;"
+           ,"Items to Submit":[
+              "P3_CHECK_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":40
+           ,"Event":"On click-uncheck (12665669753040423)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+           ,"Stop Execution On Error":true
+           ,"Wait For Result":true
+          }
+        }
+       ,{
+          "id":"12666255482040429"
+         ,"Identification":{
+            "Action":"Refresh"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"My Todo (12663826978040405)"
+          }
+         ,"Execution Options":{
+            "Sequence":60
+           ,"Event":"On click-uncheck (12665669753040423)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12666375240040430"
+         ,"Identification":{
+            "Action":"Refresh"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"My Todo Completed (12664892766040415)"
+          }
+         ,"Execution Options":{
+            "Sequence":70
+           ,"Event":"On click-uncheck (12665669753040423)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"12666945558040436"
+     ,"Identification":{
+        "Name":"On click-del"
+      }
+     ,"Execution Options":{
+        "Sequence":30
+      }
+     ,"When":{
+        "Event":"EVENT.EVENT.BROWSER.CLICK"
+       ,"Selection Type":"jQuery Selector"
+       ,"jQuery Selector":".click-del"
+      }
+     ,"Advanced":{
+        "Event Scope":"Dynamic"
+      }
+     ,"Actions":[
+        {
+          "id":"12667089842040437"
+         ,"Identification":{
+            "Action":"Confirm"
+          }
+         ,"Settings":{
+            "Title":"Delete"
+           ,"Message":"Are you sure, You would like to Delete?"
+           ,"Style":"Danger"
+          }
+         ,"Execution Options":{
+            "Sequence":10
+           ,"Event":"On click-del (12666945558040436)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12667111104040438"
+         ,"Identification":{
+            "Action":"Execute JavaScript Code"
+          }
+         ,"Settings":{
+            "Code":"let el = this.triggeringElement;\n$s(\"P3_CHECK_ID\",el.closest(\".a-CardView-header\").querySelector(\".a-CardView-title\").dataset.id);\n"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_CHECK_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":20
+           ,"Event":"On click-del (12666945558040436)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12667291175040439"
+         ,"Identification":{
+            "Action":"Execute Server-side Code"
+          }
+         ,"Settings":{
+            "Language":"PE.PROPERTY.SOURCE_SNIPPET_LANG.LOV.PLSQL.D"
+           ,"PL\/SQL Code":"BEGIN\n    delete from my_todo where ID = :P3_CHECK_ID;\nEND;"
+           ,"Items to Submit":[
+              "P3_CHECK_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":30
+           ,"Event":"On click-del (12666945558040436)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+           ,"Stop Execution On Error":true
+           ,"Wait For Result":true
+          }
+        }
+       ,{
+          "id":"12667343404040440"
+         ,"Identification":{
+            "Action":"Refresh"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"My Todo (12663826978040405)"
+          }
+         ,"Execution Options":{
+            "Sequence":40
+           ,"Event":"On click-del (12666945558040436)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12667407154040441"
+         ,"Identification":{
+            "Action":"Refresh"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"My Todo Completed (12664892766040415)"
+          }
+         ,"Execution Options":{
+            "Sequence":50
+           ,"Event":"On click-del (12666945558040436)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"12667770472040444"
+     ,"Identification":{
+        "Name":"New"
+      }
+     ,"Execution Options":{
+        "Sequence":40
+      }
+     ,"When":{
+        "Event":"EVENT.EVENT.BROWSER.CLICK"
+       ,"Selection Type":"Button"
+       ,"Button":"Add (8086318265458939)"
+      }
+     ,"Advanced":{
+        "Event Scope":"Static"
+      }
+     ,"Actions":[
+        {
+          "id":"12667884579040445"
+         ,"Identification":{
+            "Action":"Open Region"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"Add My Todo (8086493251458940)"
+          }
+         ,"Execution Options":{
+            "Sequence":10
+           ,"Event":"New (12667770472040444)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12953545698128604"
+         ,"Identification":{
+            "Action":"Clear"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_ID"
+             ,"P3_TASK"
+             ,"P3_DESCRIPTION"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":20
+           ,"Event":"New (12667770472040444)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"12667925908040446"
+     ,"Identification":{
+        "Name":"New_1"
+      }
+     ,"Execution Options":{
+        "Sequence":50
+      }
+     ,"When":{
+        "Event":"EVENT.EVENT.BROWSER.CLICK"
+       ,"Selection Type":"Button"
+       ,"Button":"Cancel (12667532509040442)"
+      }
+     ,"Advanced":{
+        "Event Scope":"Static"
+      }
+     ,"Actions":[
+        {
+          "id":"12668077074040447"
+         ,"Identification":{
+            "Action":"Close Region"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"Add My Todo (8086493251458940)"
+          }
+         ,"Execution Options":{
+            "Sequence":20
+           ,"Event":"New_1 (12667925908040446)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12668163181040448"
+         ,"Identification":{
+            "Action":"Clear"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_ACTION"
+             ,"P3_DESCRIPTION"
+             ,"P3_TASK"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":10
+           ,"Event":"New_1 (12667925908040446)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+      ]
+    }
+   ,{
+      "id":"12668340785040450"
+     ,"Identification":{
+        "Name":"DAEDIT"
+      }
+     ,"Execution Options":{
+        "Sequence":60
+      }
+     ,"When":{
+        "Event":"EVENT.EVENT.CUSTOM.CUSTOM"
+       ,"Custom Event":"DAEDIT"
+       ,"Selection Type":"JavaScript Expression"
+       ,"JavaScript Expression":"window"
+      }
+     ,"Advanced":{
+        "Event Scope":"Static"
+      }
+     ,"Actions":[
+        {
+          "id":"12953247071128601"
+         ,"Identification":{
+            "Action":"Execute JavaScript Code"
+          }
+         ,"Settings":{
+            "Code":"$s(\"P3_ID\",this.data.id);"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_ID"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":10
+           ,"Event":"DAEDIT (12668340785040450)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+       ,{
+          "id":"12953365451128602"
+         ,"Identification":{
+            "Action":"Set Value"
+          }
+         ,"Settings":{
+            "Set Type":"SQL Statement"
+           ,"SQL Statement":"select name,description\n-- into :P3_TASK,:P3_DESCRIPTION\nfrom my_todo\nwhere id=:P3_ID;"
+           ,"Items to Submit":[
+              "P3_ID"
+            ]
+           ,"Escape Special Characters":true
+           ,"Suppress Change Event":false
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Item(s)"
+           ,"Item(s)":[
+              "P3_TASK"
+             ,"P3_DESCRIPTION"
+            ]
+          }
+         ,"Execution Options":{
+            "Sequence":20
+           ,"Event":"DAEDIT (12668340785040450)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+           ,"Stop Execution On Error":true
+           ,"Wait For Result":true
+          }
+        }
+       ,{
+          "id":"12953437772128603"
+         ,"Identification":{
+            "Action":"Open Region"
+          }
+         ,"Affected Elements":{
+            "Selection Type":"Region"
+           ,"Region":"Add My Todo (8086493251458940)"
+          }
+         ,"Execution Options":{
+            "Sequence":30
+           ,"Event":"DAEDIT (12668340785040450)"
+           ,"Fire When Event Result Is":"True"
+           ,"Fire on Initialization":false
+          }
+        }
+      ]
+    }
+  ]
+ ,"Processes":[
+    {
+      "id":"8086846891458944"
+     ,"Identification":{
+        "Name":"Add My Todo"
+       ,"Type":"Execute Code"
+      }
+     ,"Source":{
+        "Location":"Local Database"
+       ,"Language":"PL\/SQL"
+       ,"PL\/SQL Code":":P3_ACTION := \u0027CREATE\u0027;"
+      }
+     ,"Execution Options":{
+        "Sequence":10
+       ,"Point":"Processing"
+       ,"Run Process":"Once Per Page Visit (default)"
+      }
+     ,"Error":{
+        "Display Location":"Inline in Notification"
+      }
+     ,"Server-side Condition":{
+        "When Button Pressed":"Add (8086318265458939)"
+      }
+    }
+   ,{
+      "id":"8086942328458945"
+     ,"Identification":{
+        "Name":"Save My Todo"
+       ,"Type":"Execute Code"
+      }
+     ,"Source":{
+        "Location":"Local Database"
+       ,"Language":"PL\/SQL"
+       ,"PL\/SQL Code":"IF :P3_ID IS NULL THEN\nINSERT INTO MY_TODO (\n    ITEM_ID,\n    NAME,\n    DESCRIPTION\n) VALUES (\n    :P3_ITEM_ID,\n    :P3_TASK,\n    :P3_DESCRIPTION\n);\nELSE\nUPDATE MY_TODO \nSET NAME = :P3_TASK,\n    DESCRIPTION = :P3_DESCRIPTION\nWHERE ID = :P3_ID;\nEND IF;\n:P3_ACTION := NULL;\n:P3_TASK := null;\n:P3_DESCRIPTION:=null;\n:P3_ID := NULL;"
+      }
+     ,"Execution Options":{
+        "Sequence":20
+       ,"Point":"Processing"
+       ,"Run Process":"Once Per Page Visit (default)"
+      }
+     ,"Error":{
+        "Display Location":"Inline in Notification"
+      }
+     ,"Server-side Condition":{
+        "When Button Pressed":"Save (8086661788458942)"
+      }
+    }
+   ,{
+      "id":"12667671797040443"
+     ,"Identification":{
+        "Name":"Cancel"
+       ,"Type":"Clear Session State"
+      }
+     ,"Settings":{
+        "Type":"Clear Items"
+       ,"Item(s)":[
+          "P3_ACTION"
+         ,"P3_DESCRIPTION"
+         ,"P3_TASK"
+        ]
+      }
+     ,"Execution Options":{
+        "Sequence":30
+       ,"Point":"Processing"
+       ,"Run Process":"Once Per Page Visit (default)"
+      }
+     ,"Error":{
+        "Display Location":"Inline in Notification"
+      }
+     ,"Server-side Condition":{
+        "When Button Pressed":"Cancel (12667532509040442)"
+      }
+    }
+  ]
+}

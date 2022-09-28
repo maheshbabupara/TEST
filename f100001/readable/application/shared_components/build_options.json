@@ -1,0 +1,41 @@
+[
+  {
+    "id":"12083331616452762"
+   ,"Identification":{
+      "Name":"Commented Out"
+    }
+   ,"Status":{
+      "Status":"Exclude"
+     ,"Default on Export":"Same as Current Status"
+     ,"On Upgrade Keep Status":false
+    }
+  }
+ ,{
+    "id":"12280981186452943"
+   ,"Identification":{
+      "Name":"Feature: Activity Reporting"
+    }
+   ,"Status":{
+      "Status":"Include"
+     ,"Default on Export":"Same as Current Status"
+     ,"On Upgrade Keep Status":false
+    }
+   ,"Comments":{
+      "Comments":"Include numerous reports and charts on end user activity."
+    }
+  }
+ ,{
+    "id":"12281552854452943"
+   ,"Identification":{
+      "Name":"Feature: About Page"
+    }
+   ,"Status":{
+      "Status":"Include"
+     ,"Default on Export":"Same as Current Status"
+     ,"On Upgrade Keep Status":false
+    }
+   ,"Comments":{
+      "Comments":"About this application page."
+    }
+  }
+]

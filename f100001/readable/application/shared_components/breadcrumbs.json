@@ -1,0 +1,42 @@
+[
+  {
+    "id":"12083941415452764"
+   ,"Identification":{
+      "Name":"Breadcrumb"
+    }
+   ,"Entries":[
+      {
+        "id":"12084102285452765"
+       ,"Identification":{
+          "Name":"Home"
+         ,"Page Number":"1"
+        }
+       ,"Execution Options":{
+          "Sequence":10
+        }
+       ,"Link":{
+          "Target":{
+            "url":"f?p=\u0026APP_ID.:1:\u0026APP_SESSION.::\u0026DEBUG."
+           ,"Page":"1"
+          }
+        }
+      }
+     ,{
+        "id":"12375031550453672"
+       ,"Identification":{
+          "Name":"Administration"
+         ,"Page Number":"10000"
+        }
+       ,"Execution Options":{
+          "Sequence":10
+        }
+       ,"Link":{
+          "Target":{
+            "url":"f?p=\u0026APP_ID.:10000:\u0026APP_SESSION.::\u0026DEBUG.:::"
+           ,"Page":"10000"
+          }
+        }
+      }
+    ]
+  }
+]

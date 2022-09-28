@@ -1,0 +1,38 @@
+[
+  {
+    "id":"12379767728485924"
+   ,"Identification":{
+      "Name":"Job"
+     ,"Static ID":"job"
+    }
+   ,"Execution Options":{
+      "Type":"Scheduled"
+     ,"Schedule Expression":"FREQ=MINUTELY;INTERVAL=1"
+     ,"Schedule Status":"Active"
+     ,"Actions Initiated On":"Always"
+    }
+   ,"Action Execution":{
+      "Action Error Handling":"Ignore"
+    }
+   ,"Actions":[
+      {
+        "id":"12380097556485925"
+       ,"Identification":{
+          "Name":"New Action"
+         ,"Type":"Execute Code"
+        }
+       ,"Source":{
+          "Location":"Local Database"
+         ,"Language":"PL\/SQL"
+         ,"PL\/SQL Code":"begin\n    insert into automation_insert values (systimestamp);\n    commit;\nend;"
+        }
+       ,"Execution Options":{
+          "Sequence":10
+        }
+       ,"Error":{
+          "Stop Execution On Error":true
+        }
+      }
+    ]
+  }
+]

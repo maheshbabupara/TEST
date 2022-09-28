@@ -1,0 +1,133 @@
+{
+  "id":"100001"
+ ,"Identification":{
+    "Name":"APP"
+   ,"Alias":"APP"
+   ,"Version":"Release 1.0"
+  }
+ ,"Row Search":{
+    "Tokenize":true
+  }
+ ,"Availability":{
+    "Status":"Available with Developer Toolbar"
+   ,"Build Status":"Run and Build Application"
+  }
+ ,"Error Handling":{
+    "Default Display Location":"Inline with Field and in Notification"
+  }
+ ,"Report Printing":{
+    "Type":"Native Printing"
+  }
+ ,"Advanced":{
+    "Friendly URLs":true
+   ,"Allow Feedback":true
+   ,"Logging":true
+   ,"Debugging":true
+   ,"Compatibility Mode":"21.2 \/ 22.1"
+  }
+ ,"Authentication":{
+    "Public User":"APEX_PUBLIC_USER"
+   ,"Authentication Scheme":"Oracle APEX Accounts (12083649265452763)"
+  }
+ ,"Authorization":{
+    "Source for Role or Group Schemes":"Access Control User Role Assignments"
+  }
+ ,"Session Management":{
+    "Rejoin Sessions":"Disabled"
+  }
+ ,"Session State Protection":{
+    "Enabled":true
+  }
+ ,"Security":{
+    "Deep Linking":"Disabled"
+   ,"Browser Cache":"Disabled"
+   ,"Embed in Frames":"Deny"
+   ,"Referrer Policy":"strict-origin"
+   ,"HTML Escaping Mode":"Extended"
+  }
+ ,"Database Session":{
+    "Parsing Schema":"DEV"
+  }
+ ,"Globalization":{
+    "Primary Language":"English (en)"
+   ,"Document Direction":"Left-To-Right"
+   ,"Language Derived From":"Application Primary Language"
+   ,"Automatic Time Zone":false
+   ,"Automatic CSV Encoding":true
+  }
+ ,"Application Format Masks":{
+    "Date":"DS"
+   ,"Timestamp":"DS"
+   ,"Timestamp Time Zone":"DS"
+  }
+ ,"Character Value Comparison":{
+    "Behavior":"Database session NLS setting (default)"
+  }
+ ,"Logo":{
+    "Type":"Text"
+   ,"Text":"APP"
+  }
+ ,"Progressive Web App":{
+    "Enable":true
+   ,"Installable":false
+   ,"Display":"Standalone"
+   ,"Screen Orientation":"Any"
+   ,"iOS Status Bar Style":"Translucent"
+  }
+ ,"Substitutions":[
+    {
+      "id":"1"
+     ,"Identification":{
+        "Name":"APP_NAME"
+      }
+     ,"Value":{
+        "Static Value":"APP"
+      }
+    }
+  ]
+ ,"User Interfaces":[
+    {
+      "id":"12278966386452918"
+     ,"Identification":{
+        "Name":"Desktop"
+      }
+     ,"Navigation":{
+        "Home URL":{
+          "url":"f?p=\u0026APP_ID.:1:\u0026SESSION."
+         ,"Page":"1"
+        }
+       ,"Login URL":{
+          "url":"f?p=\u0026APP_ID.:LOGIN:\u0026APP_SESSION.::\u0026DEBUG.:::"
+         ,"Page":"LOGIN"
+        }
+      }
+     ,"Navigation Menu":{
+        "List Template":"Side Navigation Menu (12248402911452880)"
+       ,"Template Options":[
+          "#DEFAULT#"
+         ,"t-TreeNav--styleA"
+         ,"js-navCollapsed--hidden"
+        ]
+       ,"List Position":"Side"
+       ,"List":"Navigation Menu (12084469774452767)"
+      }
+     ,"Navigation Bar":{
+        "Implementation":"List"
+       ,"List":"Navigation Bar (12278689639452917)"
+       ,"List Template":"Navigation Bar (12248046696452880)"
+       ,"Template Options":[
+          "#DEFAULT#"
+        ]
+      }
+     ,"JavaScript":{
+        "Include jQuery Migrate":false
+      }
+     ,"Attributes":{
+        "Theme":"Universal Theme (42)"
+       ,"Global Page":"0"
+       ,"Enable End Users to choose Theme Style":false
+       ,"Add \"Built with APEX\" to Footer":false
+      }
+    }
+  ]
+}

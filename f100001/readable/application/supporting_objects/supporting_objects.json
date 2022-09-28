@@ -1,0 +1,32 @@
+[
+  {
+    "id":"24301711801966240"
+   ,"Prerequisites":{
+      "Free Space":100
+     ,"System Privileges":[
+        "CREATE PROCEDURE"
+       ,"CREATE TABLE"
+       ,"CREATE TRIGGER"
+       ,"CREATE VIEW"
+      ]
+    }
+   ,"Messages":{
+      "Validations":"The following validations will be performed to ensure your system is compatible with this application."
+     ,"Application Substitutions":"You can configure the following attributes of your application."
+     ,"Build Options":"You can choose to include the following build options."
+    }
+   ,"Installation Messages":{
+      "Welcome":"This application installer will guide you through the process of creating your database objects and seed data."
+     ,"Confirmation":"Please confirm that you would like to install this application\u0027s supporting objects."
+    }
+   ,"Upgrade Messages":{
+      "Welcome":"The application installer has detected that this application\u0027s supporting objects were previously installed.  This wizard will guide you through the process of upgrading these supporting objects."
+     ,"Confirmation":"Please confirm that you would like to install this application\u0027s supporting objects."
+     ,"Success":"Your application\u0027s supporting objects have been installed."
+     ,"Failure":"Installation of database objects and seed data has failed."
+    }
+   ,"Deinstallation Messages":{
+      "Post-Deinstall":"Deinstallation complete."
+    }
+  }
+]
