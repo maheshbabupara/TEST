@@ -3,7 +3,7 @@ SET SQLBLANKLINES ON;
 
 MERGE INTO HELP_TEXTS T
 USING (
-      SELECT 'This text displays at the top of the Home/Items to Do page. Note: the end of this text includes a link to the refresh schedule. This text is managed on the page region itself.' AS DESCRIPTION,'<p>Items to do include projects/protocols and related tasks from <a href="#AGREEMENTS#">Agreements-DUA</a>, <a href="#COMS#">COMS</a>, <a href="#SAFETY#">Data Safety</a>, <a href="#IRB#">ESTR</a>, <a href="#GMAS#">GMAS</a>, <a href="#HMSIACUC#">HMS IACUC</a>, statements from <a href="#ECRT#">ecrt</a>, certifications from <a href="#OAIR#">OAIR</a>, and assigned training courses from the <a href="#HTP#">Harvard Training Portal</a>. For more information on how often the information refreshes, <a href="INFO_MODAL">view the refresh schedule details</a>.</p>' AS HELP_TEXT,'TODOME_DESCRIPTION' AS HELP_TEXT_KEY FROM DUAL
+      SELECT 'This text displays at the top of the Home/Items to Do page. Note: the end of this text includes a link to the refresh schedule. This text is managed on the page region itself.' AS HELP_TEXT_DESCRIPTION,'<p>Items to do include projects/protocols and related tasks from <a href="#AGREEMENTS#">Agreements-DUA</a>, <a href="#COMS#">COMS</a>, <a href="#SAFETY#">Data Safety</a>, <a href="#IRB#">ESTR</a>, <a href="#GMAS#">GMAS</a>, <a href="#HMSIACUC#">HMS IACUC</a>, statements from <a href="#ECRT#">ecrt</a>, certifications from <a href="#OAIR#">OAIR</a>, and assigned training courses from the <a href="#HTP#">Harvard Training Portal</a>. For more information on how often the information refreshes, <a href="INFO_MODAL">view the refresh schedule details</a>.</p>' AS HELP_TEXT,'TODOME_DESCRIPTION' AS HELP_TEXT_KEY FROM DUAL
       UNION ALL
       SELECT 'Application Description','<p>The Research Administration Portal gives faculty and researchers an overview of their research administration and compliance portfolio. The application includes certain projects and protocols from <a href="#AGREEMENTS#">Agreements-DUA</a>, <a href="#COMS#">COMS</a>, <a href="#SAFETY#">Data Safety</a>, <a href="#IRB#">ESTR</a>, <a href="#GMAS#">GMAS</a>, <a href="#HMSIACUC#">HMS IACUC</a>, and <a href="#OAIR#">OAIR</a>, as well as assigned training courses from the <a href="#HTP#">Harvard Training Portal</a>.&nbsp;</p><p>For more details on what is included in the Portal, please visit the <a href="https://ras.fss.harvard.edu/research-administration-portal">support site</a>.</p>','APP_DESCRIPTION' FROM DUAL
       UNION ALL
@@ -147,7 +147,7 @@ USING (
 ) S
 ON (T.HELP_TEXT_KEY = S.HELP_TEXT_KEY)
 WHEN MATCHED THEN
-      UPDATE SET T.HELP_TEXT_DESCRIPTION = S.HELP_TEXT_DESCRIPTION, T.HELP_TEXT = S.HELP_TEXT, T.VERSION = NVL(T.VERSION,0)+1
+      UPDATE SET T.HELP_TEXT_DESCRIPTION = S.HELP_TEXT_DESCRIPTION, T.HELP_TEXT = S.HELP_TEXT
 WHEN NOT MATCHED THEN
       INSERT (T.HELP_TEXT_ID,T.HELP_TEXT_DESCRIPTION,T.HELP_TEXT,T.HELP_TEXT_KEY) VALUES (HELP_TEXT_SEQ.NEXTVAL,S.HELP_TEXT_DESCRIPTION,S.HELP_TEXT,S.HELP_TEXT_KEY);
 
